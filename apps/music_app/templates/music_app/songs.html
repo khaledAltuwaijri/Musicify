@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Songs</title>
+</head>
+<body>
+  <h1>{{album.title}}, by {{album.artist.name}}</h1>
+  <a href="{% url 'music:add_artist_page' %}">Back to Artists</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="{% url 'playlists:home' %}">Home</a><br><br>
+  <h1>Add a Song</h1>
+  <hr><br>
+  <form action="{% url 'music:add_song' album_id=album.id %}" method="post">
+    {% csrf_token %}
+    Song Title: <input type="text" name="song_title">&nbsp;&nbsp;&nbsp;&nbsp;
+    Genre:
+      <select name="song_genre">
+        <option value="">Pick a Genre</option>
+        <option value="Rap/Hip-Hop">Rap/Hip-Hop</option>
+        <option value="Rock">Rock</option>
+        <option value="Country">Country</option>
+        <option value="R&amp;B">R&amp;B</option>
+        <option value="Jazz">Jazz</option>
+        <option value="Reggae">Reggae</option>
+        <option value="Latin">Latin</option>
+        <option value="EDM">EDM</option>
+        <option value="Funk">Funk</option>
+        <option value="Pop">Pop</option>
+        <option value="House">House</option>
+      </select>
+      <br><br>
+    <input style="font-size:20pt" type="submit" name="add_song" value="Add Song">
+  </form>
+  <br><br><br>
+  <h2>Songs in {{album.title}}</h2>
+    <table style="border: 1px solid black;">
+      <tr>
+        <th style="border: 2px solid black;">SONGS</th>
+        <th style="border: 2px solid black;">GENRE</th>
+      </tr>
+      {% for song in songs %}
+        <tr>
+          <td style="padding:10px 20px;">{{song.title}}</td>
+          <td style="padding:0px 20px;">{{song.genre}}</td>
+          <td style="padding:0px 20px;"><a href="{% url 'music:remove_song' song_id=song.id album_id=album.id %}">Remove Song</a></td>
+          <td style="padding:0px 20px;">
+            <form action="{% url 'playlists:add_to_playlist' %}" method="post">
+              {% csrf_token %}
+              <select class="playlist" name="playlist_id">
+                <option disabled="disabled" selected="selected">Pick a Playlist</option>
+                {% for playlist in playlists %}
+                <option value="{{playlist.id}}">{{playlist.title}}</option>
+                {% endfor %}
+              </select>
+              <input type="hidden" name="song_id" value="{{song.id}}">
+              <input type="submit" value="Add to Playlist">
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+</body>
+</html>

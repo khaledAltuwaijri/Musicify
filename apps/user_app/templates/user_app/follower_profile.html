@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>My Profile</title>
+</head>
+<body>
+  <a href="{% url 'users:my_followers' %}">Back to My Followers</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="{% url 'playlists:home' %}">Home</a><br><br>
+  <h1>{{friend.first_name}}'s Profile</h1>
+  <hr><br
+  <p>
+    <b>First Name:</b> {{friend.first_name}} <br><br><br>
+    <b>Last Name:</b> {{friend.last_name}} <br><br><br>
+    <b>Email:</b> {{friend.email}} <br><br><br>
+  </p>
+</body>
+</html>

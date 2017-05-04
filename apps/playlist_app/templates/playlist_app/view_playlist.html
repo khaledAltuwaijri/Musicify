@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Playlist Detail</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+<body>
+  <a href="{% url 'music:add_artist_page' %}">View Artists</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="{% url 'playlists:home' %}">Home</a><br><br>
+  <h1>{{playlist.title}}</h1>
+  <h2>{{playlist.description}}</h2>
+  <a href="{% url 'playlists:edit_playlist' playlist_id=playlist.id %}">Edit Playlist</a>
+  <hr>
+    <ol>
+      {% for song in songs %}
+      <li>{{song.title}}&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'playlists:remove_song' playlist_id=playlist.id song_id=song.id %}">Remove</a></li>
+      {% endfor %}
+    </ol>
+</body>
+</html>

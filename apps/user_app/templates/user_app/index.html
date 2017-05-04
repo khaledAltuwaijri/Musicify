@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Users</title>
+</head>
+<body>
+  <h1>Welcome Users!</h1>
+  {% for m in messages %}
+    <p>{{m}}</p>
+  {% endfor %}
+  <br><br>
+  <h1>REGISTRATION</h1> <br>
+    <form action="{% url 'users:register' %}", method="post">
+      {% csrf_token %}
+      First Name: <input type="text" name="first_name">
+      Last Name: <input type="text" name="last_name">
+      Email: <input type="email" name="email">
+      Password: <input type="password" name="password">
+      <input type="submit" name="register" value="Register">
+    </form>
+  <br><br>
+  <h1>LOGIN</h1> <br>
+  <form action="{% url 'users:login' %}", method="post">
+    {% csrf_token %}
+    Email Name: <input type="email" name="email">
+    Password: <input type="password" name="password">
+    <input type="submit" name="login" value="Login">
+  </form>
+</body>
+</html>

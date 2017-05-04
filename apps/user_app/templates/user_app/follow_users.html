@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Follow Users</title>
+</head>
+<body>
+  <a href="{% url 'music:add_artist_page' %}">View Artists</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="{% url 'playlists:home' %}">Home</a><br><br>
+  <h1>Follow Users</h1>
+  {% for notfriend in notfriends %}
+  <ul>
+    <li>{{notfriend.first_name}} {{notfriend.last_name}}&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'users:follow' followee_id=notfriend.id %}">Follow</a></li>
+  </ul>
+  {% endfor %}
+<hr>
+  <h1>Unfollow Users</h1>
+  {% for friend in friends %}
+  <ul>
+    <li>{{friend.first_name}} {{friend.last_name}}&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'users:unfollow' followee_id=friend.id %}">Unfollow</a></li>
+  </ul>
+  {% endfor %}
+
+</body>
+</html>

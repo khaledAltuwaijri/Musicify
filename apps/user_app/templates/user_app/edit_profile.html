@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Edit My Profile</title>
+</head>
+<body>
+  <a href="{% url 'users:profile' %}">Back to Profile</a>
+  <br>
+  <h1>Edit Your Profile</h1>
+  <hr>
+  {% for m in messages %}
+    <p>{{m}}</p>
+  {% endfor %}
+  <br>
+    <form action="{% url 'users:update_profile' %}" method="post">
+      {% csrf_token %}
+      First Name: <input type="text" name="first_name" placeholder="{{request.session.first_name}}"><br><br><br>
+      Last Name: <input type="text" name="last_name" placeholder="{{request.session.last_name}}"><br><br><br>
+      Password: <input type="password" name="password"><br><br><br>
+      Confirm Password: <input type="password" name="confirm_password"><br><br><br>
+      <input style="margin:10px; font-size:20pt;" type="submit" name="edit" value="Update Profile">
+    </form>
+</body>
+</html>

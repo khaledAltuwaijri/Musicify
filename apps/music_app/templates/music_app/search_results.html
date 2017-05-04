@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Search Results</title>
+</head>
+<body>
+  <a href="{% url 'music:search' %}">Back to Search Results</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="{% url 'playlists:home' %}">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="{% url 'users:profile' %}">My Profile</a><br><br>
+  <h1>Search Results</h1>
+  <br>
+  {% for m in messages %}
+    <p>{{m}}</p>
+  {% endfor %}
+  
+  <h3>Songs</h3>
+    {% for song in songs %}
+    <ol>
+      <li>{{song.title}} in <a href="{% url 'music:songs' album_id=song.album.id %}">{{song.album.title}}</a> by {{song.album.artist.name}}</li>
+    </ol>
+    {% endfor %}
+<br><br><br>
+<h3>Albums</h3>
+  {% for album in albums %}
+  <ol>
+    <li><a href="{% url 'music:songs' album_id=album.id %}">{{album.title}}</a> by {{album.artist.name}}</li>
+  </ol>
+  {% endfor %}
+<br><br><br>
+<h3>Artists</h3>
+  {% for artist in artists %}
+  <ol>
+    <li>{{artist.name}}</li>
+  </ol>
+  {% endfor %}
+<br>
+</body>
+</html>

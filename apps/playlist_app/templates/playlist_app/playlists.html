@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>My Playlists</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+<body>
+  <a href="{% url 'music:add_artist_page' %}">View Artists</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="{% url 'playlists:home' %}">Home</a><br><br>
+  <h1>Create a Playlist</h1>
+  <hr><br>
+  <form action="{% url 'playlists:create_playlist' %}" method="post">
+    {% csrf_token %}
+    Playlist Name: <input type="text" name="playlist_name"><br><br>
+    Description: <br><textarea name="playlist_description" rows="8" cols="80"></textarea><br>
+    <input style="font-size:20pt" type="submit" name="create_playlist" value="Create Playlist">
+  </form>
+
+  <h1>My Playlists</h1>
+    <table style="border: 1px solid black;">
+      <tr>
+        <th style="border: 2px solid black; padding:10px 20px;">PLAYLISTS</th>
+        <th style="border: 2px solid black; padding:10px 20px; width:400px;">DESCRIPTION</th>
+      </tr>
+      {% for playlist in playlists %}
+        <tr>
+          <td style="border: 1px solid black; padding:10px 20px;">{{playlist.title}}</td>
+          <td style="border: 1px solid black; padding:10px 20px;">{{playlist.description}}</td>
+          <td><a href="{% url 'playlists:view_playlist' playlist_id=playlist.id %}">View</a>&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="{% url 'playlists:remove_playlist' playlist_id=playlist.id %}">Remove</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+
+</body>
+</html>
